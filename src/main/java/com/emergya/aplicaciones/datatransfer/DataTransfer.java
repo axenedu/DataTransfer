@@ -143,7 +143,7 @@ public class DataTransfer {
 				if(!isEstatic(v)){
 					
 					//If the  method copies the value exists, otherwise exception
-					if(indexMethod != -1 ){
+					if(indexMethod != -1 && esTipoBasico(attribute.getType())){
 						
 						Object value = invokeGet(methods, indexMethod, src);
 						
@@ -217,7 +217,7 @@ public class DataTransfer {
 				int v = attribute.getModifiers();
 				
 				//If the  method copies the value exists, otherwise it is ignored
-				if(indexMethod != -1 ){
+				if(indexMethod != -1 && esTipoBasico(attribute.getType())){
 					if(!isEstatic(v)){
 						Object value = invokeGet(methods, indexMethod, src);
 						
@@ -295,20 +295,18 @@ public class DataTransfer {
 							
 							
 						//If the  method copies the value exists, otherwise it is ignored
-						if(indexMethod != -1 ){
-									
-							Object value = invokeGet(methods, indexMethod, src);
-									
-							//Ignored collections
-							if(!esCollection(value)){
-								if(indiceMetodoSet != -1){
-									Object [] args = {value};
-									invoke(targetClass, indiceMetodoSet, r, args);
-								}else{
-									throw new DataTransferException("Error in customCopy.Method does not exist: " + methodSearch);
-								}
-							}
-									
+						if(indexMethod != -1 ){		
+								Object value = invokeGet(methods, indexMethod, src);
+										
+								//Ignored collections
+								if(!esCollection(value)){
+									if(indiceMetodoSet != -1){
+										Object [] args = {value};
+										invoke(targetClass, indiceMetodoSet, r, args);
+									}else{
+										throw new DataTransferException("Error in customCopy.Method does not exist: " + methodSearch);
+									}
+								}	
 						}else{
 							throw new DataTransferException("Error in customCopy.Method does not exist: " + methodSearch);
 						}
@@ -390,7 +388,7 @@ public class DataTransfer {
 				 if(indexMethod != -1 && indexMethodSet != -1){
 					
 					//If the  method copies the value exists, otherwise exception
-					if(indexMethod != -1 ){
+					if(indexMethod != -1){
 						
 						Object value = invokeGet(methods, indexMethod, src);
 						
@@ -556,7 +554,8 @@ public class DataTransfer {
 				c.isAssignableFrom(Short.class) || 
 				c.isAssignableFrom(Integer.class) || 
 				c.isAssignableFrom(GregorianCalendar.class) ||
-				c.isAssignableFrom(Date.class));
+				c.isAssignableFrom(Date.class)) ||
+				c.isPrimitive();
 	}
 	
 	
