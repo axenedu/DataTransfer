@@ -39,7 +39,7 @@ package com.emergya.aplicaciones.datatransfer;
  * @author <a href="mailto:jsoler@emergya.com">Jaime Soler</a>
  * @author <a href="mailto:jariera@emergya.com">José Alfonso Riera</a>
  * @author <a href="mailto:frodriguez@emergya.com">Francisco Rodríguez Mudarra</a>
- * @version 1.0
+ * @version 0.2
  * 
  * @see DataTransfer
  * 

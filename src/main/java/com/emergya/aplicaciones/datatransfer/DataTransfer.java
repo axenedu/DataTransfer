@@ -47,7 +47,7 @@ import java.util.Iterator;
  * @author <a href="mailto:jsoler@emergya.com">Jaime Soler</a>
  * @author <a href="mailto:jariera@emergya.com">José Alfonso Riera</a>
  * @author <a href="mailto:frodriguez@emergya.com">Francisco Rodríguez Mudarra</a>
- * @version 1.0
+ * @version 0.2
  * 
  * The functionality of the class is as follows:
 
@@ -102,10 +102,7 @@ public class DataTransfer {
 	
 	/** Prefix get method */
 	private static final String METHOD_GET = "get";
-	
-	/** Prefix set method */
-	private static final String METHOD_SET = "set";
-	
+		
 	/** First character getter */
 	private static final String FIRST_METHOD_GET = "g";
 	
@@ -135,22 +132,15 @@ public class DataTransfer {
 	 * @param srcClass Class
 	 * @param Object In src
 	 * @param Object Out target
-	 * @return Object target
 	 * @throws DataTransferException
 	 */
-	public static Object exactCopy(Class srcClass, Object src, Object target) throws DataTransferException {
-		
-		Object r = null;
-		
+	public static void exactCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
+
 		try{		
-			// Class Object src
-			//Class srcClass = src.getClass();
 						
 			// Class Object target
-			Class targetClass = target.getClass();
+			Class<? extends Object> targetClass = target.getClass();
 						
-			// Instaceof class target
-			r = targetClass.newInstance();
 		
 			Field [] attributes = srcClass.getDeclaredFields();
 			Method [] methods = srcClass.getMethods();
@@ -179,7 +169,7 @@ public class DataTransfer {
 						if(!esCollection(value)){
 							if(indexMethodSet != -1){
 								Object [] args = {value};
-								invoke(targetClass, indexMethodSet, r, args);
+								invoke(targetClass, indexMethodSet, target, args);
 							}else{
 								throw new DataTransferException("Error in exactCopy.Method does not exist: " + methodSearch);
 							}
@@ -195,7 +185,6 @@ public class DataTransfer {
 			throw new DataTransferException("Error in exactCopy", e);
 		}
 		
-		return r;
 	}
 	
 	
@@ -212,23 +201,16 @@ public class DataTransfer {
 	 * @param srcClass Class
 	 * @param Object In src
 	 * @param Object Out target
-	 * @return Object target
 	 * @throws DataTransferException
 	 */
-	public static Object partialCopy(Class srcClass, Object src, Object target) throws DataTransferException {
+	public static void partialCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
 		
-		
-		Object r = null;
 		
 		try{		
-			// Class Object src
-			//Class srcClass = src.getClass();
 						
 			// Class Object target
-			Class targetClass = target.getClass();
+			Class<? extends Object> targetClass = target.getClass();
 						
-			// Instaceof class target
-			r = targetClass.newInstance();
 		
 			Field [] attributes = srcClass.getDeclaredFields();
 			Method [] methods = srcClass.getMethods();
@@ -254,7 +236,7 @@ public class DataTransfer {
 						if(!esCollection(value)){
 							if(indexMethodSet != -1){
 								Object [] args = {value};
-								invoke(targetClass, indexMethodSet, r, args);
+								invoke(targetClass, indexMethodSet, target, args);
 							}
 						}
 					}
@@ -265,8 +247,6 @@ public class DataTransfer {
 		}catch(Exception e){
 			throw new DataTransferException("Error in partialCopy", e);
 		}
-		
-		return r;
 	}
 	
 	
@@ -282,13 +262,11 @@ public class DataTransfer {
 	 * @param srcClass Class
 	 * @param Object In src
 	 * @param Object Out target
-	 * @return Object target
 	 * @param atributtes
 	 * @throws DataTransferException
 	 */
-	public static Object customCopy(Class srcClass, Object src, Object target, Collection attributes) throws DataTransferException {
+	public static void customCopy(Class<? extends Object> srcClass, Object src, Object target, Collection<String> attributes) throws DataTransferException {
 		
-		Object r = null;
 		
 		try{
 			Iterator<String> it;
@@ -298,15 +276,9 @@ public class DataTransfer {
 					&& attributes.size() > 0){
 				
 				it = attributes.iterator();
-			
-				// Class Object src
-				//Class srcClass = src.getClass();
 							
 				// Class Object target
-				Class targetClass = target.getClass();
-							
-				// Instaceof class target
-				r = targetClass.newInstance();
+				Class<? extends Object> targetClass = target.getClass();
 				
 				
 				//Iterate over the collection of attributes
@@ -332,7 +304,7 @@ public class DataTransfer {
 								if(!esCollection(value)){
 									if(indiceMetodoSet != -1){
 										Object [] args = {value};
-										invoke(targetClass, indiceMetodoSet, r, args);
+										invoke(targetClass, indiceMetodoSet, target, args);
 									}else{
 										throw new DataTransferException("Error in customCopy.Method does not exist: " + methodSearch);
 									}
@@ -351,8 +323,6 @@ public class DataTransfer {
 		}catch(Exception e){
 			throw new DataTransferException("Error in customCopy", e);
 		}
-		
-		return r;
 	}
 
 	
@@ -376,26 +346,19 @@ public class DataTransfer {
 	 * @return Object
 	 * @throws DataTransferException
 	 */
-	public static Object completCopy(Class srcClass, Object src, Object target) throws DataTransferException {
-		Object r = null;
+	public static void completCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
+		
 		int size = 0;
 		
-		
 		try{		
-			// Class Object src
-			//Class srcClass = src.getClass();
 						
 			// Class Object target
-			Class targetClass = target.getClass();
-						
-			// Instaceof class target
-			r = targetClass.newInstance();
+			Class<? extends Object> targetClass = target.getClass();
 		
 			Field [] attributes = srcClass.getDeclaredFields();
 			Method [] methods = srcClass.getMethods();
 			
 			Field [] targetAttributes = targetClass.getDeclaredFields();
-			Method [] targetMethods = targetClass.getMethods();
 			
 			//Number of attributes of the target  class
 			size = targetAttributes != null ? targetAttributes.length : 0;
@@ -427,7 +390,7 @@ public class DataTransfer {
 						if(!esCollection(value)){
 							if(indexMethodSet != -1){
 								Object [] args = {value};
-								invoke(targetClass, indexMethodSet, r, args);
+								invoke(targetClass, indexMethodSet, target, args);
 								if(size > 0)
 									size--;
 							}
@@ -451,9 +414,6 @@ public class DataTransfer {
 		
 		if(size > 0)
 			throw new DataTransferException("Failed to make every set of the target");
-		
-		
-		return r;
 	}
 	
 
@@ -512,7 +472,7 @@ public class DataTransfer {
 	* @return Object
 	* @throws DataTranferException
 	*/
-	private static Object invoke(Class c, int indexMethod, Object invoke, Object[] args) throws Exception{
+	private static Object invoke(Class<? extends Object> c, int indexMethod, Object invoke, Object[] args) throws Exception{
 		try {
 			return c.getMethods()[indexMethod].invoke(invoke, args);
 		} catch (IllegalArgumentException e) {
@@ -533,7 +493,7 @@ public class DataTransfer {
 	* @return Object
 	* @throws DataTranferException
 	*/
-	private static Object newInstance(Class c) throws Exception{
+	private static Object newInstance(Class<? extends Object> c) throws Exception{
 		try {
 			return c.newInstance();
 		} catch (InstantiationException e1) {
@@ -574,7 +534,7 @@ public class DataTransfer {
 	* @param c class to check
 	* @return boolean true if it is a basic type or false otherwise
 	*/
-	private static boolean esTipoBasico(Class c) {
+	private static boolean esTipoBasico(Class<? extends Object> c) {
 		return (c.isAssignableFrom(Long.class) || 
 				c.isAssignableFrom(Double.class) || 
 				c.isAssignableFrom(String.class) ||
@@ -600,93 +560,6 @@ public class DataTransfer {
 	private static boolean esCollection(Object c) {
 		return c instanceof Collection;
 	}
-	
-	/**
-	* Method that checks if a class is a type Date
-	* @param c class to check
-	* @return boolean true if a type Date
-	*/
-	private static boolean esDate(Class c) {
-		return (c.isAssignableFrom(Date.class));
-	}
-	
-	/**
-	* Method that checks if a class is a type Calendar
-	* @param c class to check
-	* @return boolean true if a type Calendar
-	*/
-	private static boolean esCalendar(Class c) {
-		return (c.isAssignableFrom(Calendar.class) 
-				|| c.isAssignableFrom(GregorianCalendar.class));
-	}
-	
-	/**
-	* Method that checks if a class is a type Long
-	* @param c class to check
-	* @return boolean true if a type Long
-	*/
-	private static boolean esLong(Class c) {
-		return (c.isAssignableFrom(Long.class));
-	}
-	
-	/**
-	* Method that checks if a class is an Integer
-	* @param c class to check
-	* @return boolean true if an Integer
-	*/
-	private static boolean esInteger(Class c) {
-		return (c.isAssignableFrom(Integer.class));
-	}
-	
-	/**
-	* Method that checks if a class is a Double
-	* @param c class to check
-	* @return boolean true if a Double
-	*/
-	private static boolean esDouble(Class c) {
-		return (c.isAssignableFrom(Double.class));
-	}
-
-	/**
-	* Method that checks if a class is a Boolean
-	* @param c class to check
-	* @return boolean true if it is a Boolean
-	*/
-	private static boolean esBoolean(Class c) {
-		return (c.isAssignableFrom(Boolean.class));
-	}
-	
-	/**
-	* Method that checks if a class is a type Float
-	* @param c class to check
-	* @return boolean true if it is a Float
-	*/
-	private static boolean esFloat(Class c) {
-		return (c.isAssignableFrom(Float.class));
-	}
-	
-	/**
-	* Method that checks if a class is a String
-	* @param c class to check
-	* @return boolean true if a String
-	*/
-	private static boolean esString(Class c) {
-		return (c.isAssignableFrom(String.class));
-	}
-	
-	/**
-	* Method that checks if a class is a type Short
-	* @param c class to check
-	* @return boolean true if a type Short
-	*/
-	private static boolean esShort(Class c) {
-		return (c.isAssignableFrom(Short.class));
-	}
-	
-	
-	
-	
-
 	
 }
 
