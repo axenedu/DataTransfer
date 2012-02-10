@@ -132,9 +132,10 @@ public class DataTransfer {
 	 * @param srcClass Class
 	 * @param Object In src
 	 * @param Object Out target
+	 * @return target reference
 	 * @throws DataTransferException
 	 */
-	public static void exactCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
+	public static Object exactCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
 
 		try{		
 						
@@ -180,7 +181,7 @@ public class DataTransfer {
 					}
 				}
 			}
-		
+		return target;
 		}catch(Exception e){
 			throw new DataTransferException("Error in exactCopy", e);
 		}
@@ -201,9 +202,10 @@ public class DataTransfer {
 	 * @param srcClass Class
 	 * @param Object In src
 	 * @param Object Out target
+	 * @return target reference
 	 * @throws DataTransferException
 	 */
-	public static void partialCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
+	public static Object partialCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
 		
 		
 		try{		
@@ -243,7 +245,8 @@ public class DataTransfer {
 				}
 				
 			}
-		
+			
+		return target;
 		}catch(Exception e){
 			throw new DataTransferException("Error in partialCopy", e);
 		}
@@ -263,9 +266,10 @@ public class DataTransfer {
 	 * @param Object In src
 	 * @param Object Out target
 	 * @param atributtes
+	 * @return target reference
 	 * @throws DataTransferException
 	 */
-	public static void customCopy(Class<? extends Object> srcClass, Object src, Object target, Collection<String> attributes) throws DataTransferException {
+	public static Object customCopy(Class<? extends Object> srcClass, Object src, Object target, Collection<String> attributes) throws DataTransferException {
 		
 		
 		try{
@@ -320,6 +324,7 @@ public class DataTransfer {
 				}
 			}
 			
+		return target;
 		}catch(Exception e){
 			throw new DataTransferException("Error in customCopy", e);
 		}
@@ -344,9 +349,10 @@ public class DataTransfer {
 	 * @param src
 	 * @param target
 	 * @return Object
+	 * @return target reference
 	 * @throws DataTransferException
 	 */
-	public static void completCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
+	public static Object completCopy(Class<? extends Object> srcClass, Object src, Object target) throws DataTransferException {
 		
 		int size = 0;
 		
@@ -414,6 +420,8 @@ public class DataTransfer {
 		
 		if(size > 0)
 			throw new DataTransferException("Failed to make every set of the target");
+
+		return target;
 	}
 	
 
