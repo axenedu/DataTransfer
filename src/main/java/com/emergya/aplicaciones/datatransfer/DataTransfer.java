@@ -132,18 +132,19 @@ public class DataTransfer {
 	 * Should throw an exception, based on the copy to copy all the attributes of the object source get method
 	 * To the same attribute set method (same type) in the destination.
 	 * 
+	 * @param srcClass Class
 	 * @param Object In src
 	 * @param Object Out target
 	 * @return Object target
 	 * @throws DataTransferException
 	 */
-	public static Object exactCopy(Object src, Object target) throws DataTransferException {
+	public static Object exactCopy(Class srcClass, Object src, Object target) throws DataTransferException {
 		
 		Object r = null;
 		
 		try{		
 			// Class Object src
-			Class srcClass = src.getClass();
+			//Class srcClass = src.getClass();
 						
 			// Class Object target
 			Class targetClass = target.getClass();
@@ -208,19 +209,20 @@ public class DataTransfer {
 	 * For all attributes of the target object method get to try to find a get method that corresponds to the source object,
 	 * If it is not simply that attribute is not copied.
 	 * 
+	 * @param srcClass Class
 	 * @param Object In src
 	 * @param Object Out target
 	 * @return Object target
 	 * @throws DataTransferException
 	 */
-	public static Object partialCopy(Object src, Object target) throws DataTransferException {
+	public static Object partialCopy(Class srcClass, Object src, Object target) throws DataTransferException {
 		
 		
 		Object r = null;
 		
 		try{		
 			// Class Object src
-			Class srcClass = src.getClass();
+			//Class srcClass = src.getClass();
 						
 			// Class Object target
 			Class targetClass = target.getClass();
@@ -277,13 +279,14 @@ public class DataTransfer {
 	 * A target object in the specified attributes will be copied into a set of strings (Collection) of a target object. 
 	 * If there is some method get (the source) or set (destination) of the specified attributes, the method throws an exception.
 	 *
+	 * @param srcClass Class
 	 * @param Object In src
 	 * @param Object Out target
 	 * @return Object target
 	 * @param atributtes
 	 * @throws DataTransferException
 	 */
-	public static Object customCopy(Object src, Object target, Collection attributes) throws DataTransferException {
+	public static Object customCopy(Class srcClass, Object src, Object target, Collection attributes) throws DataTransferException {
 		
 		Object r = null;
 		
@@ -297,7 +300,7 @@ public class DataTransfer {
 				it = attributes.iterator();
 			
 				// Class Object src
-				Class srcClass = src.getClass();
+				//Class srcClass = src.getClass();
 							
 				// Class Object target
 				Class targetClass = target.getClass();
@@ -367,19 +370,20 @@ public class DataTransfer {
 	 * Complete copy in a target object from the values ​​of a source object, need not be the same type, all method attributes 
 	 * will get the target object must match an attribute with get method in the source (same type) in otherwise raise an exception. 
 	 * 
+	 * @param srcClass Class
 	 * @param src
 	 * @param target
 	 * @return Object
 	 * @throws DataTransferException
 	 */
-	public static Object completCopy(Object src, Object target) throws DataTransferException {
+	public static Object completCopy(Class srcClass, Object src, Object target) throws DataTransferException {
 		Object r = null;
 		int size = 0;
 		
 		
 		try{		
 			// Class Object src
-			Class srcClass = src.getClass();
+			//Class srcClass = src.getClass();
 						
 			// Class Object target
 			Class targetClass = target.getClass();

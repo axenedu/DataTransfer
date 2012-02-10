@@ -49,7 +49,7 @@ public class AppTest extends TestCase {
     		tc1.setNumber(new Integer(2));
     		
     		TestClass2 tc2 = new TestClass2();
-    		tc2 = (TestClass2)DataTransfer.exactCopy(tc1, tc2);
+    		tc2 = (TestClass2)DataTransfer.exactCopy(TestClass1.class, tc1, tc2);
     		
     		//System.out.println(tc2.getId() + SEPARADOR + tc2.getLogin() + SEPARADOR + tc2.getPassword() + SEPARADOR + tc2.getNumber());
     		assertTrue( true );
@@ -70,7 +70,7 @@ public class AppTest extends TestCase {
     		tc1.setNumber(new Integer(22));
     		
     		TestClass2 tc2 = new TestClass2();
-    		tc2 = (TestClass2)DataTransfer.partialCopy(tc1, tc2);
+    		tc2 = (TestClass2)DataTransfer.partialCopy(TestClass1.class, tc1, tc2);
     		
     		//System.out.println(tc2.getId() + SEPARADOR + tc2.getLogin() + SEPARADOR + tc2.getPassword() + SEPARADOR + tc2.getNumber());
     		assertTrue( true );
@@ -96,14 +96,14 @@ public class AppTest extends TestCase {
     		attributes.add("id");
     		attributes.add("login");
     		
-    		tc2 = (TestClass2)DataTransfer.customCopy(tc1, tc2, attributes);
+    		tc2 = (TestClass2)DataTransfer.customCopy(TestClass1.class, tc1, tc2, attributes);
     		//System.out.println(tc2.getId() + SEPARADOR + tc2.getLogin() + SEPARADOR + tc2.getPassword() + SEPARADOR + tc2.getNumber());
     		
     		tc2 = new TestClass2();
     		attributes = new LinkedList<String>();
     		attributes.add("password");
     		attributes.add("number");
-    		tc2 = (TestClass2)DataTransfer.customCopy(tc1, tc2, attributes);
+    		tc2 = (TestClass2)DataTransfer.customCopy(TestClass1.class, tc1, tc2, attributes);
     		//System.out.println(tc2.getId() + SEPARADOR + tc2.getLogin() + SEPARADOR + tc2.getPassword() + SEPARADOR + tc2.getNumber());
     		
     		assertTrue( true );
@@ -125,7 +125,7 @@ public class AppTest extends TestCase {
     		tc1.setNumber(new Integer(2));
     		
     		TestClass2 tc2 = new TestClass2();
-    		tc2 = (TestClass2)DataTransfer.completCopy(tc1, tc2);
+    		tc2 = (TestClass2)DataTransfer.completCopy(TestClass1.class, tc1, tc2);
     		
     		//System.out.println(tc2.getId() + SEPARADOR + tc2.getLogin() + SEPARADOR + tc2.getPassword() + SEPARADOR + tc2.getNumber());
     		assertTrue( true );
